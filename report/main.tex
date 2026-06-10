@@ -1,9 +1,9 @@
-% DGM Spring 2026 — Face Generation Challenge — Final Report (NeurIPS style)
-% Set the title/author/GitHub URL. An optional sample grid can be added at the
-% commented figure in Section 5.
+% ============================================================
+% DGM Spring 2026 — Face Generation Challenge — Final Report
+% ============================================================
 \documentclass{article}
 
-\usepackage[final]{neurips_2023}   % match your template's .sty filename/year
+\usepackage[final]{neurips_2022}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -18,12 +18,13 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
 
-\title{Fine-tuning StyleGAN2-ADA on CelebV-HQ for the Face Generation Challenge}
+\title{Deep Generative Models Final Project: \\
+Face Generation Challenge}
 
 \author{%
-  Firstname~Lastname \\
-  Department of XXX, UNIST \\
-  \texttt{name@unist.ac.kr} \\
+  Sieun Lee \\
+  Department of Industrial Engineering, UNIST \\
+  \texttt{sieun5548@unist.ac.kr} \\
 }
 
 \begin{document}
@@ -144,8 +145,16 @@ their leaderboard score instead. For generation I assign one latent to each seed
 Everything ran on a single RTX~A5000~/~RTX~3090 ($24$\,GB, shared with other users), with
 PyTorch~$2.0.1$+cu118 and a system CUDA~$12.6$ toolchain for compiling StyleGAN's custom ops. Training went
 at about $26$\,s/kimg, so a full $1000$-kimg run took roughly seven hours. The environment is fixed by
-\texttt{requirements.txt} and a \texttt{Dockerfile}, and the seeds and $\psi$ live in \texttt{config.py}.
-Code: \url{https://github.com/<user>/<repo>}.
+\texttt{requirements.txt} and a \texttt{Dockerfile}.
+
+\paragraph{Random seeds (final submission).} Image $i$ is generated from integer seed $i$ for
+$i = 0, \dots, 999$, so the full seed set is $\{0, 1, \dots, 999\}$. Each seed initializes a NumPy
+\texttt{RandomState} that draws the latent $z_i \in \mathbb{R}^{512}$, which the generator maps under
+truncation $\psi = 1.0$ and \texttt{noise\_mode=const}. Generation is therefore deterministic: the same
+seed set and checkpoint reproduce the submitted images (identical up to GPU floating-point noise). The
+seed set and $\psi$ are also recorded in \texttt{config.py}.
+
+\paragraph{Code.} \url{https://github.com/sieun-00/dgm-face-generation}
 
 \section{Results}
 Table~\ref{tab:results} tracks how the leaderboard score moved as I went ($\psi=0.8$ unless noted).
