@@ -147,12 +147,13 @@ PyTorch~$2.0.1$+cu118 and a system CUDA~$12.6$ toolchain for compiling StyleGAN'
 at about $26$\,s/kimg, so a full $1000$-kimg run took roughly seven hours. The environment is fixed by
 \texttt{requirements.txt} and a \texttt{Dockerfile}.
 
-\paragraph{Random seeds (final submission).} Image $i$ is generated from integer seed $i$ for
-$i = 0, \dots, 999$, so the full seed set is $\{0, 1, \dots, 999\}$. Each seed initializes a NumPy
-\texttt{RandomState} that draws the latent $z_i \in \mathbb{R}^{512}$, which the generator maps under
-truncation $\psi = 1.0$ and \texttt{noise\_mode=const}. Generation is therefore deterministic: the same
-seed set and checkpoint reproduce the submitted images (identical up to GPU floating-point noise). The
-seed set and $\psi$ are also recorded in \texttt{config.py}.
+\paragraph{Random seeds (final submission).} The exact seeds are the $1{,}000$ integers
+$0, 1, 2, \dots, 999$ (one seed per image): image $i$, i.e.\ the output file \texttt{img\_0000} through
+\texttt{img\_0999}, is generated from seed $i$. Each seed initializes a NumPy \texttt{RandomState} that
+draws the latent $z_i \in \mathbb{R}^{512}$, which the generator maps under truncation $\psi = 1.0$ and
+\texttt{noise\_mode=const}. Generation is deterministic, so these seeds with the released checkpoint
+reproduce the submitted images (identical up to GPU floating-point noise). The same seeds and $\psi$ are
+recorded in \texttt{config.py}.
 
 \paragraph{Code.} \url{https://github.com/sieun-00/dgm-face-generation}
 
