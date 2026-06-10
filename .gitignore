@@ -1,0 +1,9 @@
+data/
+runs/
+out/
+external/
+*.zip
+*.pkl
+__pycache__/
+*.pyc
+.DS_Store

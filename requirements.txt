@@ -1,0 +1,25 @@
+# Pinned environment for reproducibility (CUDA 12.2 host, driver 535).
+#
+# NOTE: torch/torchvision are NOT listed here — installing them via plain pip
+# would pull a CPU-only build. Install them WITH the CUDA index in setup_env.sh:
+#   pip install torch==2.0.1 torchvision==0.15.2 \
+#       --index-url https://download.pytorch.org/whl/cu118
+# nvcc + build tools (cuda-toolkit, ninja, gxx) are also handled in setup_env.sh.
+#
+# The rest (pip install -r requirements.txt) after the env is created:
+numpy==1.23.5             # 1.23.x avoids np.float deprecations in the StyleGAN repo
+scipy==1.10.1
+pillow==9.5.0
+opencv-python==4.9.0.80
+imageio==2.34.0
+imageio-ffmpeg==0.4.9
+pyspng==0.1.1             # fast PNG I/O used by dataset_tool / training
+ninja==1.11.1.1           # JIT-compiles the StyleGAN custom CUDA ops (required)
+tqdm==4.66.2
+click==8.1.7
+requests==2.31.0
+psutil==5.9.8
+# optional: only if you enable MTCNN face cropping in 02_preprocess.py
+# facenet-pytorch==2.5.3
+# optional: pull HuggingFace mirror of CelebV-HQ
+huggingface-hub==0.20.3
